@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>template stamping</title>
+  </head>
+  <body>
+
+    <div id=one></div>
+    <div id=two></div>
+
+    <template id=test>
+      <h1 onclick={clickHandler}>section: {name}</h1>
+      <p if={author}>by { author.name }</p>
+      <div if={content} html={content}>this will be replaced</div>
+      <div if={content}>but it's escaped in regular text children: {content}</div>
+      <ul each={list}>
+        <li>item {#}: {this}</li>
+      </ul>
+      <p>
+        <a href={href}>{linkText}</a>
+        <a href=http://google.com>normal link</a>
+      </p>
+    </template>
+
+    <script type=module>
+      import stamp from '../index.js'
+      const template = document.querySelector('#test')
+      const one = document.querySelector('#one')
+      const two = document.querySelector('#two')
+
+      function render(template, data, el) {
+        el.innerHTML = "";
+        el.appendChild(stamp(template, data));
+      }
+
+      render(template, {
+        clickHandler: (evt) => {
+          alert(`heeeey ${evt.target.innerText}`)
+        },
+        name: 'thing one',
+        content: '<b>bold</b> is allowed in html.',
+        linkText: 'jklabs',
+        href: 'https://jklabs.net',
+        author: {
+          name: 'Jesse'
+        },
+        list: ['one', 'two', 'three']
+      }, one)
+      render(template, {
+        name: 'thing two',
+        linkText: 'deno.land',
+        href: 'https://deno.land',
+        author: false
+      }, two)
+    </script>
+
+  </body>
+</html>

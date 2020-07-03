@@ -1,0 +1,10 @@
+{
+  "name": "template-stamper",
+  "version": "0.0.1",
+  "description": "Super simple DOM element creation using template elements and string replacement",
+  "type": "module",
+  "module": "index.js",
+  "main": "index.js",
+  "author": "Jesse Kriss <jesse@jklabs.net>",
+  "license": "MIT"
+}
