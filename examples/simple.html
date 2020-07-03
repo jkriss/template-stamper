@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>template stamping</title>
-  </head>
-  <body>
 
-    <div id=one></div>
-    <div id=two></div>
+<head>
+  <meta charset="utf-8">
+  <title>template stamping</title>
+</head>
 
-    <template id=test>
-      <h1 onclick={clickHandler}>section: {name}</h1>
-      <p if={author}>by { author.name }</p>
-      <div if={content} html={content}>this will be replaced</div>
-      <div if={content}>but it's escaped in regular text children: {content}</div>
-      <ul each={list}>
-        <li>item {#}: {this}</li>
+<body>
+
+  <div id=one></div>
+  <div id=two></div>
+
+  <template id=test>
+    <h1 onclick={clickHandler}>section: {name}</h1>
+    <p if={author}>by { author.name }</p>
+    <div if={content} html={content}>this will be replaced</div>
+    <div if={content}>but it's escaped in regular text children: {content}</div>
+    <div unless={content}>No content provided</div>
+    <ul each={list}>
+      <li>item {#}: {this}</li>
       </ul>
       <p>
         <a href={href}>{linkText}</a>

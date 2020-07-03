@@ -1,6 +1,6 @@
 {
   "name": "template-stamper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Super simple DOM element creation using template elements and string replacement",
   "type": "module",
   "module": "index.js",
