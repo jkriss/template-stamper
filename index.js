@@ -53,21 +53,19 @@ export default function stamp(template, data) {
         const key = getKey(attr.value);
         const val = key && getDot(data, key);
 
+        const keep = (b, key) => {
+          b ? toRemove.push(key) : node.remove();
+        };
+
         if (attr.name === "if") {
-          if (!val) {
-            node.remove();
-          } else {
-            toRemove.push("if");
-          }
+          keep(val, attr.name);
+        } else if (attr.name === "unless") {
+          keep(!val, attr.name);
         } else if (attr.name === "each") {
           toRemove.push("each");
           if (val) {
-            // make a new template from the children,
-            // render for each item
             const t = document.createElement("template");
-            for (let j = 0; j < node.children.length; j++) {
-              t.content.appendChild(node.children[j]);
-            }
+            t.innerHTML = node.innerHTML;
             node.innerHTML = "";
             val.forEach((subVal, i) => {
               const itemData = { "#": i, this: subVal };
@@ -85,7 +83,7 @@ export default function stamp(template, data) {
           if (m) {
             if (val) node.addEventListener(m[1], val);
             toRemove.push(attr.name);
-          } else {
+          } else if (val) {
             attr.value = val;
           }
         }
